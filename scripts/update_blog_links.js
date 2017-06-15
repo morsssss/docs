@@ -70,7 +70,7 @@ function writeBlogPage(item, directory, parent) {
     // Replace unadorned, simple image tags with AMP equivalents (I tried this at home. Unfortunately we don't have the proper width or height.)
     .replace(
       /<img src="([^"]+)"[^>]+>/g,
-      "div class=\"wp-image\"><amp-img layout='responsive' width=\"660\" height=\"200\" src=\"$1\"></amp-img>"
+      "<div class=\"wp-image\"><amp-img layout='responsive' width=\"660\" height=\"200\" src=\"$1\"></amp-img>"
     )
     // Replace Wordpress-style gifs with their AMP equivalents (don't try this at home)
     .replace(
