@@ -67,10 +67,20 @@ function writeBlogPage(item, directory, parent) {
       /<img[^>]+data-orig-size="([\d]+),([\d]+)"[^>]+class="([^"]+)"[^>]+src="([^"]+)"[^>]+srcset="([^"]+)[^>]+sizes="([^"]+)"[^>]+\/>/g,
       "<div class=\"wp-image $3\"><amp-img layout='responsive' width=\"$1\" height=\"$2\" src=\"$4\" srcset=\"$5\" sizes=\"$6\"></amp-img>"
     )
+    // Replace unadorned, simple image tags with AMP equivalents (I tried this at home. Unfortunately we don't have the proper width or height.)
+    .replace(
+      /<img src="([^"]+)"[^>]+>/g,
+      "div class=\"wp-image\"><amp-img layout='responsive' width=\"660\" height=\"200\" src=\"$1\"></amp-img>"
+    )
     // Replace Wordpress-style gifs with their AMP equivalents (don't try this at home)
     .replace(
       /<img[^>]+[^>]+class="([^"]+)"[^>]+src="([^"]+)"[^>]+width="([\d]+)"[^>]+height="([\d]+)"[^>]+\/>/g,
       "<div class=\"wp-image $1\"><amp-img layout='fixed' width=\"$3\" height=\"$4\" src=\"$2\"></amp-img>"
+    )
+    // Replace YouTube videos with AMP equivalents
+    .replace(
+      /<iframe class='youtube-player'[^>]+width='([\d]+)'[^>]+height='([\d]+)'[^>]+youtube\.com\/embed\/([^\?]+)[^>]+><\/iframe>/g,
+      "<amp-youtube data-videoid=\"\$3\" layout=\"responsive\" width=\"$2\" height=\"$1\"></amp-youtube>"
     )
     // Replace other style tags we didn't catch and hope for the best..
     .replace(/style="[^"]+"/g, "")
