@@ -79,7 +79,7 @@ function writeBlogPage(item, directory, parent) {
     )
     // Replace YouTube videos with AMP equivalents
     .replace(
-      /<iframe class='youtube-player'[^>]+width='([\d]+)'[^>]+height='([\d]+)'[^>]+youtube\.com\/embed\/([^\?]+)[^>]+><\/iframe>/g,
+      /<iframe class='youtube-player'[^>]+width=['"]([\d]+)['"][^>]+height=['"]([\d]+)['"][^>]+youtube\.com\/embed\/([^\?]+)[^>]+><\/iframe>/g,
       "<amp-youtube data-videoid=\"\$3\" layout=\"responsive\" width=\"$2\" height=\"$1\"></amp-youtube>"
     )
     // Replace other style tags we didn't catch and hope for the best..
